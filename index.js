@@ -13,14 +13,24 @@ var app = express();
 
 var bind = require('bind');
 
+var database = require('./db.js');
+
 //listen in a specific port
 app.set('port', (process.env.PORT || 1337));
+
+app.get('/script.js', function (req, res) {
+  res.sendFile('tpl/script.js',{ root: __dirname });
+});
+
+app.get('/style.css', function (req, res) {
+  res.sendFile('tpl/style.css',{ root: __dirname });
+});
 
 
 //create a server for responding get requests
 app.get('/', function(request, response) 
 {
-    bind.toFile('tpl/home.html',
+    bind.toFile('tpl/home.html', 
     {}, 
     function(data){
         

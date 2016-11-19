@@ -41,17 +41,6 @@ app.get('/', function(request, response)
 app.post('/search', function(request, response) 
 {
 	response.writeHead(200, {'Content-Type': 'text/html'});
-		
-    request.on('data', function(data) 
-    {
-        body += data;
-    });
-
-    request.on('end', function() 
-    {
-        postVar = qs.decode(body);
-    });
-
     response.end('search request');
   	
 });
@@ -59,18 +48,7 @@ app.post('/search', function(request, response)
 //create a server for answering to search requests
 app.post('/delete', function(request, response) 
 {
-	response.writeHead(200, {'Content-Type': 'text/html'});
-		
-    request.on('data', function(data) 
-    {
-        body += data;
-    });
-
-    request.on('end', function() 
-    {
-        postVar = qs.decode(body);
-    });
-
+    response.writeHead(200, {'Content-Type': 'text/html'});
     response.end('delete request');
   	
 });
@@ -79,17 +57,6 @@ app.post('/delete', function(request, response)
 app.post('/insert', function(request, response) 
 {
 	response.writeHead(200, {'Content-Type': 'text/html'});
-		
-    request.on('data', function(data) 
-    {
-        body += data;
-    });
-
-    request.on('end', function() 
-    {
-        postVar = qs.decode(body);
-    });
-
     response.end('insert request');
   	
 });

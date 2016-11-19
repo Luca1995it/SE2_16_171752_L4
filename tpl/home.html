@@ -6,20 +6,30 @@
     <body bgcolor="#00FFCC">
         
         <button onclick="search()" id="searchButton">Search</button>
-        <button onclick="delete()" id="searchButton">Delete</button>
-        <button onclick="insert()" id="searchButton">Insert</button>
+        <button onclick="cancel()" id="deleteButton">Delete</button>
+        <button onclick="insert()" id="insertButton">Insert</button>
         <br><br>
         <div id="message" style="color: red;"></div>
         
-        <form method="post" action="http://localhost:1337/search"><br>
+        <form method="post" action="http://localhost:1337/delete"><br>
             
-            <div class="descr">ID: </div><input type="text" id="id" value="(:id:)"/><br><br>
-            <div class="descr">Name: </div><input type="text" id="name" value="(:name:)"/><br><br>
-            <div class="descr">Surname: </div><input type="text" id="surname" value="(:surname:)"/><br><br>
-            <div class="descr">Level: </div><input type="text" id="level" value="(:level:)"/><br><br>
-            <div class="descr">Salary: </div><input type="text" id="salary" value="(:salary:)"/><br><br>
+            <div class="descr" id="idDescr">ID: 
+                <input type="text" id="id" value="(:id:)"/>
+            </div><br><br>
+            <div class="descr" id="idDescr" hidden>Name: 
+                <input type="text" id="name" value="(:name:)"/>
+            </div><br><br>
+            <div class="descr" id="idDescr" hidden>Surname: 
+                <input type="text" id="surname" value="(:surname:)"/>
+            </div><br><br>
+            <div class="descr" id="idDescr" hidden>Level: 
+                <input type="text" id="level" value="(:level:)"/>
+            </div><br><br>
+            <div class="descr" id="idDescr" hidden>Salary: 
+                <input type="text" id="salary" value="(:salary:)"/>
+            </div><br><br>
         
-            <button type="submit">Go!</button>
+            <button type="submit" id="submitButton" hidden>Go!</button>
         </form>
         
         <script src="script.js"></script>

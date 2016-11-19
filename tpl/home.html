@@ -4,21 +4,28 @@
     </head>
     
     <body bgcolor="#00FFCC">
+        
         <button onclick="search()" id="searchButton">Search</button>
         <button onclick="delete()" id="searchButton">Delete</button>
         <button onclick="insert()" id="searchButton">Insert</button>
         <br><br>
         <div id="message" style="color: red;"></div>
-        <br>
-        <div class="descr">ID: </div><input type="text" id="id"/><br><br>
-        <div class="descr">Name: </div><input type="text" id="name"/><br><br>
-        <div class="descr">Surname: </div><input type="text" id="surname"/><br><br>
-        <div class="descr">Level: </div><input type="text" id="level"/><br><br>
-        <div class="descr">Salary: </div><input type="text" id="salary"/><br><br>
         
+        <form method="post" action="http://localhost:1337/search"><br>
+            
+            <div class="descr">ID: </div><input type="text" id="id" value="(:id:)"/><br><br>
+            <div class="descr">Name: </div><input type="text" id="name" value="(:name:)"/><br><br>
+            <div class="descr">Surname: </div><input type="text" id="surname" value="(:surname:)"/><br><br>
+            <div class="descr">Level: </div><input type="text" id="level" value="(:level:)"/><br><br>
+            <div class="descr">Salary: </div><input type="text" id="salary" value="(:salary:)"/><br><br>
         
+            <button type="submit">Go!</button>
+        </form>
         
         <script src="script.js"></script>
+        <br><br>
+        <p>
+        <font style="font-size: 8px; font-style: italic;"> - - Luca Di Liello - -</font></p>
     </body>
 
 </html>

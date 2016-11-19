@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/Luca1995it/SE2_16_171752_L4/issues"
   },
-  "homepage": "https://github.com/Luca1995it/SE2_16_171752_L4#readme"
+  "homepage": "https://github.com/Luca1995it/SE2_16_171752_L4#readme",
+  "dependencies": {
+    "bind": "^0.1.7",
+    "express": "^4.14.0",
+    "http": "0.0.0",
+    "qs-parse": "^0.2.0",
+    "url": "^0.11.0",
+    "util": "^0.10.3"
+  }
 }

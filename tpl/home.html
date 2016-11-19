@@ -11,25 +11,25 @@
         <br><br>
         <div id="message" style="color: red;"></div>
         
-        <form method="post" action="http://localhost:1337/delete"><br>
+        <form method="post" id="form" action="http://localhost:1337/delete"><br>
             
-            <div class="descr" id="idDescr">ID: 
-                <input type="text" id="id" value="(:id:)"/>
+            <div class="descr" id="idDescr" (:hidden:)>ID: 
+                <input type="text" id="id" name="id" value="(:id:)"/>
             </div><br><br>
-            <div class="descr" id="nameDescr" hidden>Name: 
-                <input type="text" id="name" value="(:name:)"/>
+            <div class="descr" id="nameDescr" (:hidden:)>Name: 
+                <input type="text" id="name" name="name" value="(:name:)"/>
             </div><br><br>
-            <div class="descr" id="surnameDescr" hidden>Surname: 
-                <input type="text" id="surname" value="(:surname:)"/>
+            <div class="descr" id="surnameDescr" (:hidden:)>Surname: 
+                <input type="text" id="surname" name="surname" value="(:surname:)"/>
             </div><br><br>
-            <div class="descr" id="levelDescr" hidden>Level: 
-                <input type="text" id="level" value="(:level:)"/>
+            <div class="descr" id="levelDescr" (:hidden:)>Level: 
+                <input type="text" id="level" name="level" value="(:level:)"/>
             </div><br><br>
-            <div class="descr" id="salaryDescr" hidden>Salary: 
-                <input type="text" id="salary" value="(:salary:)"/>
+            <div class="descr" id="salaryDescr" (:hidden:)>Salary: 
+                <input type="text" id="salary" name="salary" value="(:salary:)"/>
             </div><br><br>
         
-            <button type="submit" id="submitButton" hidden>Go!</button>
+            <button type="submit" id="submitButton" (:hiddenButton:)>Go!</button>
         </form>
         
         <script src="script.js"></script>

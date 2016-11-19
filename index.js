@@ -13,7 +13,15 @@ var app = express();
 
 var bind = require('bind');
 
-var database = require('./db.js');
+var db = require('./db.js');
+
+//POST
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+//JSON post
+app.use(bodyParser.json());
+
 
 //listen in a specific port
 app.set('port', (process.env.PORT || 1337));
@@ -27,11 +35,20 @@ app.get('/style.css', function (req, res) {
 });
 
 
+var defaultOptions = {
+    hidden: 'hidden',
+    hiddenButton: 'hidden',
+    id: '',
+    name: '',
+    surname: '',
+    level: '',
+    salary: ''
+}
+
 //create a server for responding get requests
 app.get('/', function(request, response) 
 {
-    bind.toFile('tpl/home.html', 
-    {}, 
+    bind.toFile('tpl/home.html', defaultOptions, 
     function(data){
         
         //data contiene la pagina html dopo che sono stati risolti i bind ^
@@ -50,24 +67,95 @@ app.get('/', function(request, response)
 //create a server for answering to search requests
 app.post('/search', function(request, response) 
 {
-	response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end('search request');
+    var employee = db.get(request.body.id);
+    if(employee!=undefined){
+        bind.toFile('tpl/home.html', 
+        {
+            id: employee[0],
+            name: employee[1],
+            surname: employee[2],
+            level: employee[3],
+            salary: employee[4]
+        }, 
+        function(data){
+        
+            //data contiene la pagina html dopo che sono stati risolti i bind ^
+            //html head (type of the page)
+            //codice di risposta 200 Htlm (OK) 
+            //e mando una risposta di tipo text/plain
+            response.writeHead(200, {'Content-Type':'text/html'});
+    
+            //html content
+            //contenuto della pagina html da inviare, contenuto in data
+            response.end(data);
+        });
+        
+    } else{
+        bind.toFile('tpl/home.html', 
+        {}, 
+        function(data){
+        
+            //data contiene la pagina html dopo che sono stati risolti i bind ^
+            //html head (type of the page)
+            //codice di risposta 200 Htlm (OK) 
+            //e mando una risposta di tipo text/plain
+            response.writeHead(200, {'Content-Type':'text/html'});
+    
+            //html content
+            //contenuto della pagina html da inviare, contenuto in data
+            response.end(data);
+        });
+    }
   	
 });
  
 //create a server for answering to search requests
 app.post('/delete', function(request, response) 
 {
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end('delete request');
+    db.remove(request.body.id);
+    
+    bind.toFile('tpl/home.html', 
+    defaultOptions, 
+    function(data){
+        
+        //data contiene la pagina html dopo che sono stati risolti i bind ^
+        //html head (type of the page)
+        //codice di risposta 200 Htlm (OK) 
+        //e mando una risposta di tipo text/plain
+        response.writeHead(200, {'Content-Type':'text/html'});
+    
+        //html content
+        //contenuto della pagina html da inviare, contenuto in data
+        response.end(data);
+    });
+  	
   	
 });
  
 //create a server for answering to search requests
 app.post('/insert', function(request, response) 
 {
-	response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end('insert request');
+    db.add(request.body.id,
+           request.body.name,
+           request.body.surname,
+           request.body.level,
+           request.body.salary
+    );
+    
+	bind.toFile('tpl/home.html', 
+    defaultOptions, 
+    function(data){
+        
+        //data contiene la pagina html dopo che sono stati risolti i bind ^
+        //html head (type of the page)
+        //codice di risposta 200 Htlm (OK) 
+        //e mando una risposta di tipo text/plain
+        response.writeHead(200, {'Content-Type':'text/html'});
+    
+        //html content
+        //contenuto della pagina html da inviare, contenuto in data
+        response.end(data);
+    });
   	
 });
 

@@ -1,0 +1,24 @@
+{
+  "name": "ex_node.js_luca_di_liello",
+  "version": "1.0.0",
+  "description": "Esercizio numero 2 (SE2_16_171752_L4) su Node.js di Luca Di Liello",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luca1995it/SE2_16_171752_L4.git"
+  },
+  "keywords": [
+    "Node",
+    "Ex",
+    "JavaScript"
+  ],
+  "author": "Luca Di Liello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luca1995it/SE2_16_171752_L4/issues"
+  },
+  "homepage": "https://github.com/Luca1995it/SE2_16_171752_L4#readme"
+}

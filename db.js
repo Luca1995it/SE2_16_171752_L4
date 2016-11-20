@@ -1,7 +1,21 @@
 var memoria = [];
+var tmp1 = 1;
 
 var add = function(id, name, surname, level, salary){
-    memoria.push([id,name,surname,level,salary]);
+    var res;
+    if(id == ''){
+        id = String(tmp1++);
+        memoria.push([id,name,surname,level,salary]);
+        res = 1;
+    } else if(find(id)!=(-1)){
+        remove(id);
+        memoria.push([id,name,surname,level,salary]);
+        res = 0;
+    } else {
+        memoria.push([id,name,surname,level,salary]);
+        res = 1;
+    }
+    return res;
 }
 
 var remove = function(id){
@@ -18,9 +32,8 @@ var get = function(id){
 
 //funzioni locali
 function find(id){
-    for(i=0; i < memoria.length; i++){
+    for(i=0; i < memoria.length; i++) 
         if(memoria[i][0]==id) return i;
-    }
     return -1;
 }
 

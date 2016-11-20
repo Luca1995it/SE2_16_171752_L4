@@ -75,7 +75,7 @@ app.get('/', function(request, response)
 app.post('/search', function(request, response) 
 {
     var employee = db.get(request.body.id);
-    if(employee!=undefined){
+    if(employee != undefined){
         bind.toFile('tpl/home.html', 
         {
             id: employee[0],
@@ -122,11 +122,15 @@ app.post('/search', function(request, response)
 //create a server for answering to search requests
 app.post('/delete', function(request, response) 
 {
-    db.remove(request.body.id);
+    var x = db.remove(request.body.id);
+    
+    var msg;
+    if(x==0) msg = 'Deleted successfully';
+    else msg = 'Item to delete not found';
     
     bind.toFile('tpl/home.html', 
     merge_options(defaultOptions,{
-        message: "Deleted successfully"
+        message: msg
     }), 
     function(data){
         

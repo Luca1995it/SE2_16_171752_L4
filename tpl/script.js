@@ -121,16 +121,16 @@ function send(){
     if(activeInsert){
         console.log("Controllo dati");
         var check = true;
-        var patt = /\d*/;
+        var patt = /^[0-9]*$/;
     
         if(!patt.test(id.value)) check = false;
         
-        patt = /\d+/;
+        patt = /^[0-9]+$/;
         
         if(!patt.test(level.value)) check = false;
         if(!patt.test(salary.value)) check = false;
         
-        patt = /[a-zA-Z]+/;
+        patt = /^[A-z]+$/;
         
         if(!patt.test(nome.value)) check = false;
         if(!patt.test(surname.value)) check = false;       
@@ -139,7 +139,7 @@ function send(){
         else message.innerHTML = "Incorrect input data";
         
     } else if(activeDelete || activeSearch){
-        var patt = /\d+/;
+        var patt = /^[0-9]*$/;
         if(patt.test(id.value)) form.submit();
         else message.innerHTML = "Incorrect input data";
     }

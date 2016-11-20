@@ -20,7 +20,10 @@ var add = function(id, name, surname, level, salary){
 
 var remove = function(id){
     var pos = find(id);
-    if(pos!=(-1)) memoria.splice(pos,1);
+    if(pos!=(-1)){
+        memoria.splice(pos,1);
+        return 0;
+    } else return 1;
 }
 
 var get = function(id){

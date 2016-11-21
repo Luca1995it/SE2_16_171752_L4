@@ -1,40 +1,39 @@
-//Libraries
-var http = require('http');
-//general lib
+//library for a general purpose javascript web-server
 var express = require('express');
-//parse URL
-var url = require('url');
-//inspect variables
-var util = require('util');
 
-var qs = require('qs-parse');
+//library for using template
+var bind = require('bind');
+
+//my javascript file with "database" function
+var db = require('./db.js');
+
 //instantiate express
 var app = express(); 
 
-var bind = require('bind');
-
-var db = require('./db.js');
-
-//POST
+//a middleware for json parsing
 var bodyParser = require('body-parser');
 
+/* This example demonstrates adding a generic 
+JSON and urlencoded parser as a 
+top-level middleware, which will parse 
+the bodies of all incoming requests. This is the simplest setup. */
 app.use(bodyParser.urlencoded({ extended: false }));
-//JSON post
 app.use(bodyParser.json());
-
 
 //listen in a specific port
 app.set('port', (process.env.PORT || 1337));
 
+//function to respond on get requests on /script.js
 app.get('/script.js', function (req, res) {
   res.sendFile('tpl/script.js',{ root: __dirname });
 });
 
+//funcion to respond to get requests on /style.css
 app.get('/style.css', function (req, res) {
   res.sendFile('tpl/style.css',{ root: __dirname });
 });
 
-
+//a dictionary object for defaults-setting which will be used by bind
 var defaultOptions = {
     hidden: 'hidden',
     hiddenButton: 'hidden',
@@ -45,6 +44,7 @@ var defaultOptions = {
     salary: ''
 }
 
+//a simple function to merge two dictionary objects
 function merge_options(obj1,obj2){
     var obj3 = {};
     for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
@@ -52,16 +52,16 @@ function merge_options(obj1,obj2){
     return obj3;
 }
 
-//create a server for responding get requests
+//create a server for responding get requests on /
 app.get('/', function(request, response) 
 {
+    //bind to the home.html file with default-options.
     bind.toFile('tpl/home.html', defaultOptions, 
     function(data){
-        
         //data contiene la pagina html dopo che sono stati risolti i bind ^
         //html head (type of the page)
         //codice di risposta 200 Htlm (OK) 
-        //e mando una risposta di tipo text/plain
+        //e mando una risposta di tipo text/html
         response.writeHead(200, {'Content-Type':'text/html'});
     
         //html content
@@ -71,13 +71,15 @@ app.get('/', function(request, response)
   	
 });
 
-//create a server for answering to search requests
+//create a server for answering on search requests on /search
 app.post('/search', function(request, response) 
 {
+    //the database will return an array with the data of the employee if the employee with this id exist, otherwise undefined 
     var employee = db.get(request.body.id);
     if(employee != undefined){
         bind.toFile('tpl/home.html', 
-        {
+        {   
+            //setting the options to the employee's values
             id: employee[0],
             nome: employee[1],
             surname: employee[2],
@@ -86,7 +88,6 @@ app.post('/search', function(request, response)
             hiddenButton : 'hidden'
         }, 
         function(data){
-        
             //data contiene la pagina html dopo che sono stati risolti i bind ^
             //html head (type of the page)
             //codice di risposta 200 Htlm (OK) 
@@ -101,6 +102,7 @@ app.post('/search', function(request, response)
     } else{
         bind.toFile('tpl/home.html', 
         merge_options(defaultOptions,{
+            //adding the "Not Found" message to notify that the search had no result
             message: "Not Found"
         }), 
         function(data){
@@ -119,9 +121,10 @@ app.post('/search', function(request, response)
   	
 });
  
-//create a server for answering to search requests
+//create a server for answering on delete requests on /delete
 app.post('/delete', function(request, response) 
 {
+    //x will return 0 if the item existed and was deleted, 1 otherwise
     var x = db.remove(request.body.id);
     
     var msg;
@@ -148,9 +151,10 @@ app.post('/delete', function(request, response)
   	
 });
  
-//create a server for answering to search requests
+//create a server for answering on insert requests on /insert
 app.post('/insert', function(request, response) 
 {
+    //the database will return 1 if the item has been added correctly, 0 if it was modified successfully
     var x = db.add(request.body.id,
            request.body.nome,
            request.body.surname,
@@ -184,4 +188,4 @@ app.post('/insert', function(request, response)
 app.listen(1337, '127.0.0.1');
  
 //check status
-console.log('Navigate on http://localhost:1337/ or http://127.0.0.1:1337/ to use the application');
+console.log('Navigate on http://localhost:1337/ or http://127.0.0.1:1337/');

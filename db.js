@@ -1,25 +1,26 @@
 //for storing the employees
 var memoria = [];
 
-//for getting a new id if the user has left it blanck
-var tmp1 = 1;
-
+//for adding a new employee
 var add = function(id, name, surname, level, salary){
     var res;
     if(id == ''){
         //case with empty id field
-        id = String(tmp1++);
+        id = String(getNewId());
         memoria.push([id,name,surname,level,salary]);
         res = 1;
+        console.log("Registered with id: " + id);
     } else if(find(id)!=(-1)){
         //case with just used id, overwriting of the previus data
         remove(id);
         memoria.push([id,name,surname,level,salary]);
         res = 0;
+        console.log("Registered with id: " + id);
     } else {
         //case with new id
         memoria.push([id,name,surname,level,salary]);
         res = 1;
+        console.log("Registered with id: " + id);
     }
     return res;
 }
@@ -40,12 +41,29 @@ var get = function(id){
     else return undefined;
 }
 
-
 //to find the position on an employee with this id
 function find(id){
     for(i=0; i < memoria.length; i++) 
         if(memoria[i][0]==id) return i;
     return -1;
+}
+
+//for getting a new id if the user has left it blanck
+function getNewId(){
+    newId = 1;
+    found = false;
+    while(!found){
+        if(!existId(newId)) found = true;
+        else newId++;
+    }   
+    return newId;
+}
+
+function existId(newId){
+    for(i = 0; i < memoria.length; i++){
+        if(newId==memoria[i][0]) return true;
+    }
+    return false;
 }
 
 //export functions (if not defined here, it is private)

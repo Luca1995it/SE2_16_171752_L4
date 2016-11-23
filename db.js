@@ -59,6 +59,7 @@ function getNewId(){
     return newId;
 }
 
+//return true if the selected id has just been used
 function existId(newId){
     for(i = 0; i < memoria.length; i++){
         if(newId==memoria[i][0]) return true;
